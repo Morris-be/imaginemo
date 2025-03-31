@@ -6,8 +6,7 @@ import CTFWriteups from './pages/CTFWriteups';
 import Projects from './pages/Projects';
 import { Navbar } from './components/Navbar';
 
-// writeups
-import Placeholder from './pages/writeups/Placeholder';
+import MarkdownLoader from './pages/MarkdownLoader';
 
 
 const App: React.FC = () => {
@@ -22,9 +21,9 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/ctf" element={<CTFWriteups />}/>
-              <Route path="/ctf/placeholder" element={<Placeholder />}/>
-
+            <Route path="/ctf/:slug" element={<MarkdownLoader />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<MarkdownLoader />} />
           </Routes>
         </main>
       </div>

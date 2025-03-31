@@ -25,9 +25,9 @@ const CTFWriteups: React.FC = () => {
           Adrian Junge
         </a>
         {' '}
-        randomly mentioned it while we were eating at the cafeteria. I'd never heard of CTF before and was instantly fascinated.
+        randomly mentioned it over lunch at the cafeteria. I'd never heard of CTF before and was instantly fascinated.
 
-I immediately asked for a bunch of resources I could get started with—OverTheWire, TryHackMe, HackTheBox, PicoCTF. I pretty much started doing nothing else besides CTF. I then joined the university's CTF team, 
+Eager to get started, I immediately asked for a bunch of resources—OverTheWire, TryHackMe, HackTheBox, PicoCTF. I pretty much started doing nothing else besides CTF. I then joined the university's CTF team, 
         {' '}
           <a
             href="https://kitctf.de/"
@@ -37,23 +37,23 @@ I immediately asked for a bunch of resources I could get started with—OverTheW
           >
             KITCTF
           </a>
-        {'. '} Solving CTF together with others is great! Six months after starting, and I've (hopefully) qualified for the DHM 2025. Exciting times!
+        {'. '} Solving CTF together with others is great! Six months after starting, and I'm trying to qualify for the DHM 2025. Exciting times!
 
 Below are some of the write-ups I've made for the challenges I've completed.
         </div>
 
         <Textheader text="My Favorites"/>
-        <Widget link="placeholder" title="Skullcode" description="Reverse Engineering - CSCG 2025" iconSrc={skullcode} gradientFrom="#34d399" gradientTo="#14b8a6"/>
+        <Widget link="skullcode" title="Skullcode" description="Reverse Engineering - CSCG 2025" iconSrc={skullcode} gradientFrom="#34d399" gradientTo="#14b8a6"/>
         
-        <Widget link="placeholder" title="Gridwave" description="Reverse Engineering - CSCG 2025" iconSrc={gridwave} gradientFrom="#38bdf8" gradientTo="#6366f1"/>
+        <Widget link="gridwave" title="Gridwave" description="Reverse Engineering - CSCG 2025" iconSrc={gridwave} gradientFrom="#38bdf8" gradientTo="#6366f1"/>
 
-        <Widget link="placeholder" title="Flag Service" description="Crypto - CSCG 2025" iconSrc={flagservice} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>
+        <Widget link="flagservice" title="Flag Service" description="Crypto - CSCG 2025" iconSrc={flagservice} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>
 
-        <Widget link="placeholder" title="Nokia is Calling" description="Misc - CSCG 2025" iconSrc={nokia} gradientFrom="#f59e0b" gradientTo="#ea580c"/>
+        <Widget link="nokiaiscalling" title="Nokia is Calling" description="Misc - CSCG 2025" iconSrc={nokia} gradientFrom="#f59e0b" gradientTo="#ea580c"/>
 
         <Textheader text="Archive"/>
-        <ArchiveRow title="LinkVortex" ctf="Hack The Box" link='placeholder' date={new Date(2024, 0, 17)}/>
-        <ArchiveRow title="Chemistry" ctf="Hack The Box" link='placeholder' date={new Date(2024, 0, 14)}/>
+        <ArchiveRow title="LinkVortex" ctf="Hack The Box" link='linkvortex' date={new Date(2024, 0, 17)}/>
+        <ArchiveRow title="Chemistry" ctf="Hack The Box" link='chemistry' date={new Date(2024, 0, 14)}/>
       </div>
     </div>
   );
