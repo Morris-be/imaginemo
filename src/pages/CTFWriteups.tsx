@@ -5,11 +5,14 @@ import gridwave from '../assets/gridwave.png';
 import nokia from '../assets/nokia.png';
 import flagservice from '../assets/kerberos.svg';
 import Textheader from '../components/Textheader';
+import ArchiveRow from '../components/ArchiveRow';
+
+
 
 const CTFWriteups: React.FC = () => {
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="max-w-200 p-5 items-center">
+      <div className="max-w-200 w-full p-5 items-center mx-auto">
         <h1 className="text-6xl font-bold">CTF Writeups</h1>
         <div className="text-2xl py-3">My Capture the Flag (CTF) journey began in October 2024 when my friend 
         {' '}
@@ -36,10 +39,10 @@ I immediately asked for a bunch of resources I could get started with—OverTheW
           </a>
         {'. '} Solving CTF together with others is great! Six months after starting, and I've (hopefully) qualified for the DHM 2025. Exciting times!
 
-Below are some of the write-ups I've made for my favorite challenges I've completed.
+Below are some of the write-ups I've made for the challenges I've completed.
         </div>
 
-        <Textheader text="2025"/>
+        <Textheader text="My Favorites"/>
         <Widget link="placeholder" title="Skullcode" description="Reverse Engineering - CSCG 2025" iconSrc={skullcode} gradientFrom="#34d399" gradientTo="#14b8a6"/>
         
         <Widget link="placeholder" title="Gridwave" description="Reverse Engineering - CSCG 2025" iconSrc={gridwave} gradientFrom="#38bdf8" gradientTo="#6366f1"/>
@@ -48,8 +51,9 @@ Below are some of the write-ups I've made for my favorite challenges I've comple
 
         <Widget link="placeholder" title="Nokia is Calling" description="Misc - CSCG 2025" iconSrc={nokia} gradientFrom="#f59e0b" gradientTo="#ea580c"/>
 
-
-
+        <Textheader text="Archive"/>
+        <ArchiveRow title="LinkVortex" ctf="Hack The Box" link='placeholder' date={new Date(2024, 0, 17)}/>
+        <ArchiveRow title="Chemistry" ctf="Hack The Box" link='placeholder' date={new Date(2024, 0, 14)}/>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import Textheader from '../components/Textheader';
 const About: React.FC = () => {
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="max-w-200 p-5 items-center">
+      <div className="max-w-200 w-full p-5 items-center mx-auto">
         <h1 className="text-6xl font-bold">About Me</h1>
         <div className="text-2xl py-3">
           Hi, I'm Morris. <br/>

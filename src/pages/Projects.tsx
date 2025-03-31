@@ -8,7 +8,7 @@ import Textheader from '../components/Textheader';
 const Projects: React.FC = () => {
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="max-w-200 p-5 items-center">
+      <div className="max-w-200 w-full p-5 items-center mx-auto">
         <h1 className="text-6xl font-bold">Projects</h1>
         <div className="text-2xl py-3">These are a couple of my projects
         </div>
