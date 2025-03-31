@@ -5,4 +5,36 @@
 @theme {
     --font-global: "Source Sans Pro", "sans-serif"; 
     --font-header: "DM Serif Display", "serif"; 
+    --color-midnight: #121212;
   }
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@utility text-body-resp {
+    @apply text-lg lg:text-lg xl:text-xl 2xl:text-2xl;
+}
+@utility text-title {
+  @apply text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl;
+}
+@utility text-h1-resp {
+  @apply text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl;
+}
+@utility text-h2-resp {
+  @apply text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl;
+}
+@utility text-h3-resp {
+  @apply text-xl lg:text-2xl 2xl:text-3xl;
+}
+@utility content-width-resp {
+  @apply max-w-115 sm:max-w-125 lg:max-w-140 xl:max-w-165 2xl:max-w-200;
+}
+@utility navbar-width-resp {
+  @apply max-w-100 sm:max-w-120 md:max-w-130 lg:max-w-140 xl:max-w-165 2xl:max-w-200;
+}
+@utility custom-link-styling {
+  @apply text-blue-500 underline hover:no-underline dark:opacity-70;
+}
+@utility draggable-ball {
+  @apply h-10 sm:h-12 lg:h-13 xl:h-15 2xl:h-18 w-10 sm:w-12 lg:w-13 xl:w-15 2xl:w-18;
+}
+

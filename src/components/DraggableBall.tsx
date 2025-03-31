@@ -5,7 +5,7 @@ import ball from '../assets/basketball.svg';
 const DraggableBall: React.FC = () => {
   const controls = useAnimation();
   const ballRef = useRef<HTMLDivElement>(null);
-  const size = 70;
+  const size = 60;
   const [isThrown, setIsThrown] = useState(false);
   
   const animationFrameRef = useRef<number | null>(null);
@@ -91,6 +91,7 @@ const DraggableBall: React.FC = () => {
   };
 
   return (
+    <div className='relative draggable-ball'>
     <motion.div
       ref={ballRef}
       drag={!isThrown}
@@ -109,14 +110,14 @@ const DraggableBall: React.FC = () => {
       style={{ cursor: isThrown ? 'default' : 'grab', touchAction: 'none', position: 'absolute' }}
     >
       <motion.img
-        width={size}
-        height={size}
         src={ball}
         draggable={false}
         animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 10, ease: 'linear' }}
+        transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
+        className=""
       />
     </motion.div>
+    </div>
   );
 };
 

@@ -6,7 +6,7 @@ interface TitleProps {
 
 const Textheader: React.FC<TitleProps> = ({ text }) => {
   return (
-    <div className="text-3xl font-extrabold pt-6">
+    <div className="text-h3-resp font-extrabold pt-6">
       {text}
     </div>
   );

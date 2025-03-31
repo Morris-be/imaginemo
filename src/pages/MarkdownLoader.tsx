@@ -35,7 +35,7 @@ const MarkdownLoader: React.FC = () => {
 
   if (error) {
     return  <div className="flex justify-center items-center w-full">
-        <div className="max-w-200 w-full p-5 items-center mx-auto text-2xl">
+        <div className="content-width-resp w-full p-5 items-center mx-auto text-body-resp">
             Something went wrong! Try again.
         </div>
         </div>;
@@ -43,7 +43,7 @@ const MarkdownLoader: React.FC = () => {
 
   if (!content) {
     return <div className="flex justify-center items-center w-full">
-    <div className="max-w-200 w-full p-5 items-center mx-auto text-2xl">
+    <div className="content-width-resp w-full p-5 items-center mx-auto text-body-resp">
         Loading...
     </div>
     </div>;
@@ -51,16 +51,26 @@ const MarkdownLoader: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center w-full">
-        <div className="max-w-200 w-full p-5 items-center mx-auto text-2xl">
+        <div className="content-width-resp w-full p-5 items-center mx-auto text-body-resp">
          <ReactMarkdown
          components={{
-            h1: ({ children }) => <h1 className="text-6xl font-bold text-4xl font-bold mt-4 mb-2">{children}</h1>,
-            h2: ({ children }) => <h2 className="text-4xl font-semibold mt-3 mb-2">{children}</h2>,
-            h3: ({ children }) => <h3 className="text-2xl font-semibold mt-2 mb-2">{children}</h3>,
-            p: ({ children }) => <p className="text-2xl leading-relaxed">{children}</p>,
-            li: ({ children }) => <li className="ml-4 list-disc text-2xl">{children}</li>,
+            h1: ({ children }) => <h1 className="text-h1-resp font-bold text-4xl pb-3">{children}</h1>,
+            h2: ({ children }) => <h2 className="text-h2-resp font-semibold mt-3 mb-2 pb-3">{children}</h2>,
+            h3: ({ children }) => <h3 className="text-h3-resp font-semibold mt-2 mb-2">{children}</h3>,
+            p: ({ children }) => <p className="text-body-resp leading-relaxed">{children}</p>,
+            li: ({ children }) => <li className="ml-4 list-disc text-body-resp">{children}</li>,
             strong: ({ children }) => <strong className="font-bold">{children}</strong>,
             em: ({ children }) => <em className="italic">{children}</em>,
+            a: ({ children, href }) => (
+                <a
+                  href={href}
+                  className="custom-link-styling"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {children}
+                </a>
+              ),
           }}
           >{content}</ReactMarkdown>
         </div>

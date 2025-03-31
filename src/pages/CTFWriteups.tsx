@@ -1,9 +1,9 @@
 import React from 'react';
 import Widget from '../components/Widget';
-import skullcode from '../assets/skullcode.png';
-import gridwave from '../assets/gridwave.png';
-import nokia from '../assets/nokia.png';
-import flagservice from '../assets/kerberos.svg';
+import skullcode from '../assets/widgeticons/skullcode.png';
+import gridwave from '../assets/widgeticons/gridwave.png';
+import nokia from '../assets/widgeticons/nokia.png';
+import flagservice from '../assets/widgeticons/kerberos.svg';
 import Textheader from '../components/Textheader';
 import ArchiveRow from '../components/ArchiveRow';
 
@@ -12,15 +12,15 @@ import ArchiveRow from '../components/ArchiveRow';
 const CTFWriteups: React.FC = () => {
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="max-w-200 w-full p-5 items-center mx-auto">
-        <h1 className="text-6xl font-bold">CTF Writeups</h1>
-        <div className="text-2xl py-3">My Capture the Flag (CTF) journey began in October 2024 when my friend 
+      <div className="content-width-resp w-full p-5 items-center mx-auto">
+        <h1 className="text-h2-resp font-bold">CTF Writeups</h1>
+        <div className="text-body-resp py-3">My Capture the Flag (CTF) journey began in October 2024 when my friend 
         {' '}
         <a
-          href="http://adrianjunge.de/"
+          href="https://adrianjunge.de/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-500 underline hover:no-underline"
+          className="custom-link-styling"
         >
           Adrian Junge
         </a>
@@ -33,13 +33,13 @@ Eager to get started, I immediately asked for a bunch of resources—OverTheWire
             href="https://kitctf.de/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 underline hover:no-underline"
+            className="custom-link-styling"
           >
             KITCTF
           </a>
-        {'. '} Solving CTF together with others is great! Six months after starting, and I'm trying to qualify for the DHM 2025. Exciting times!
+        {'. '} Solving CTF together with others is great. Six months after starting, and I'm trying to qualify for the DHM 2025. Exciting times!
 
-Below are some of the write-ups I've made for the challenges I've completed.
+Below are some of the writeups I've made for the challenges I've completed.
         </div>
 
         <Textheader text="My Favorites"/>
