@@ -18,7 +18,8 @@ const JellyHeader: React.FC<JellyHeaderProps> = ({ text, link, newtab, png }) =>
       const { height, width, left, top } = ref.current.getBoundingClientRect();
       const middleX = clientX - (left + width / 2);
       const middleY = clientY - (top + height / 2);
-      setPosition({ x: middleX, y: middleY });
+      const effectFactor = 0.35; 
+      setPosition({ x: middleX * effectFactor, y: middleY * effectFactor });
     }
   };
   const reset = () => {
@@ -36,7 +37,7 @@ const JellyHeader: React.FC<JellyHeaderProps> = ({ text, link, newtab, png }) =>
       onMouseMove={handleMouse}
       onMouseLeave={reset}
       animate={{ x, y }}
-      transition={{ type: 'spring', stiffness: 200, damping: 10, mass: 0.1 }}
+      transition={{ type: 'spring', stiffness: 150, damping: 4, mass: 0.25 }}
       className="inline-block relative"
     >
       {link ? (

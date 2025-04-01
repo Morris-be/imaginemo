@@ -21,7 +21,7 @@ const Widget: React.FC<WidgetProps> = ({ title, description, iconSrc, link, grad
         <div className="w-1/3 h-full rounded-l-lg overflow-hidden">
           <GradientContent iconSrc={iconSrc} gradientFrom={gradientFrom} gradientTo={gradientTo}/>
         </div>
-        <div className="w-2/3 pl-4">
+        <div className="w-2/3 pl-4 pr-1">
           <h2 className="text-h3-resp font-bold">{title}</h2>
           <p className="text-body-resp dark:text-gray-200">{description}</p>
         </div>
