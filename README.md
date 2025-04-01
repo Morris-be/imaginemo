@@ -1,8 +1,8 @@
-# Morris Baumgarten-Egemole's Personal Website
+# Morris BE's Personal Website
 
-This is the source code of my personal website. If you run this site, you get an overview of my personal projects, writeups for CTF's and some more information about me.
+This is the source code for my personal website. If you like the minimalistic design, feel free to take some inspiration. Most importantly, don't forget to throw the baskeball.
 
-Better yet, just visit directly at [morrisbe](https://google.com) (tbd)
+Come check out the site at [morrisbe](https://morrisbe.de).
 
 ## Setup
 First clone the project with `git clone <url>` then, run: 
@@ -10,7 +10,9 @@ First clone the project with `git clone <url>` then, run:
 ```
 npm install
 ```
-To then run a dev version, run:
+from inside the project directory.
+
+To then run a dev instance:
 ```
 npm run dev
 ```
