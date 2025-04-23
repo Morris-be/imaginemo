@@ -37,4 +37,9 @@
 @utility draggable-ball {
   @apply h-10 sm:h-12 lg:h-13 xl:h-15 2xl:h-18 w-10 sm:w-12 lg:w-13 xl:w-15 2xl:w-18;
 }
-
+@utility normal-image {
+  @apply w-full;
+}
+@utility phone-image {
+  @apply w-3/4 lg:w-1/2;
+}

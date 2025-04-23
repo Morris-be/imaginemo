@@ -54,7 +54,7 @@ const MarkdownLoader: React.FC = () => {
         <div className="content-width-resp w-full p-5 items-center mx-auto text-body-resp">
          <ReactMarkdown
          components={{
-            h1: ({ children }) => <h1 className="text-h1-resp font-bold text-4xl pb-3">{children}</h1>,
+            h1: ({ children }) => <h1 className="text-h1-resp font-bold pb-3">{children}</h1>,
             h2: ({ children }) => <h2 className="text-h2-resp font-semibold mt-3 mb-2 pb-3">{children}</h2>,
             h3: ({ children }) => <h3 className="text-h3-resp font-semibold mt-2 mb-2">{children}</h3>,
             p: ({ children }) => <p className="text-body-resp leading-relaxed">{children}</p>,
@@ -71,6 +71,16 @@ const MarkdownLoader: React.FC = () => {
                   {children}
                 </a>
               ),
+            img: ({ src, alt }) => (
+              <div className="w-full lg:flex lg:justify-center p-2">
+              <img
+                src={`/writeups/${slug}/${src}`}
+                alt={alt}
+                loading="lazy"
+                className={`h-auto border-2 dark:border-w rounded-md ${alt === "phone" ? "phone-image" : "normal-image"}`}
+                />
+              </div>
+            ),
           }}
           >{content}</ReactMarkdown>
         </div>

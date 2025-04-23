@@ -15,7 +15,7 @@ const Home: React.FC = () => {
         <div className="text-body-resp">
           <p className="font-bold pt-3"> Morris Baumgarten-Egemole </p>
           <p className="font-bold text-gray-600 dark:text-gray-200"> Student</p> <br/><br/>
-          I'm a student at the Karlsruhe Institute für Technologie in Germany, currently 2 semesters away from completing my master's degree in Computer Science. <br/><br/>
+          I'm a student at the Karlsruhe Institute of Technology in Germany, currently completing my master's degree in Computer Science. <br/><br/>
           
           I regularly play CTF and am highly interested in everything computers and security. <br/><br/>
 
@@ -47,17 +47,17 @@ const Home: React.FC = () => {
             >
               Github
             </a>
-          </div> <br/><br/><br/>
+          </div> <br/><br/>
+          <p className="font-bold"> Select Projects </p>
+          <Widget link="/projects/chart4blind" title="Chart4Blind" description="A user interface for chart digitisation and accessible chart conversion" iconSrc={chart4blind} gradientFrom="#E2294F" gradientTo="#B31F3D"/>
+          <Widget link="/projects/mytokenapp" title="MyToken App" description="A react native application for an extended O-Auth key service" iconSrc={foldablephone} gradientFrom="#4ADBC8" gradientTo="#45B1A3"/>
+          <br/><br/>
           <p className="font-bold"> Select Writeups </p> 
           <Widget link="/ctf/skullcode" title="Skullcode" description="Reverse Engineering - CSCG 2025" iconSrc={skullcode} gradientFrom="#34d399" gradientTo="#14b8a6"/>
         
           <Widget link="/ctf/gridwave" title="Gridwave" description="Reverse Engineering - CSCG 2025" iconSrc={gridwave} gradientFrom="#38bdf8" gradientTo="#6366f1"/>
 
           <Widget link="/projects/flagservice" title="Flag Service" description="Crypto - CSCG 2025" iconSrc={flagservice} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>
-          <br/><br/><br/><p className="font-bold"> Select Projects </p>
-          <Widget link="/projects/chart4blind" title="Chart4Blind" description="A user interface for chart digitisation and accessible chart conversion" iconSrc={chart4blind} gradientFrom="#E2294F" gradientTo="#B31F3D"/>
-          <Widget link="/projects/mytokenapp" title="MyToken App" description="A react native application for an extended O-Auth key service" iconSrc={foldablephone} gradientFrom="#4ADBC8" gradientTo="#45B1A3"/>
-
         </div>
     </div>
   </div>
