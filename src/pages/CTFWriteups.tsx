@@ -1,9 +1,8 @@
 import React from 'react';
 import Widget from '../components/Widget';
-import skullcode from '../assets/widgeticons/skullcode.png';
-import gridwave from '../assets/widgeticons/gridwave.png';
-import nokia from '../assets/widgeticons/nokia.png';
-import flagservice from '../assets/widgeticons/kerberos.svg';
+import crackmenix from '../assets/widgeticons/crackmenix.svg';
+import supercluster from '../assets/widgeticons/supercluster.svg';
+import kdfdream from '../assets/widgeticons/kdfdream.png';
 import Textheader from '../components/Textheader';
 import ArchiveRow from '../components/ArchiveRow';
 
@@ -41,16 +40,10 @@ Eager to get started, I immediately asked for a bunch of resources—OverTheWire
 
 Below are some of the writeups I've made for the challenges I've completed.
         </div>
-
         <Textheader text="My Favorites"/>
-        <Widget link="skullcode" title="Skullcode" description="Reverse Engineering - CSCG 2025" iconSrc={skullcode} gradientFrom="#34d399" gradientTo="#14b8a6"/>
-        
-        <Widget link="gridwave" title="Gridwave" description="Reverse Engineering - CSCG 2025" iconSrc={gridwave} gradientFrom="#38bdf8" gradientTo="#6366f1"/>
-
-        <Widget link="flagservice" title="Flag Service" description="Crypto - CSCG 2025" iconSrc={flagservice} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>
-
-        <Widget link="nokiaiscalling" title="Nokia is Calling" description="Misc - CSCG 2025" iconSrc={nokia} gradientFrom="#f59e0b" gradientTo="#ea580c"/>
-
+        <Widget link="/ctf/crackmenix" title="Crackme.nix" description="Reverse Engineering - CSCG 2025" iconSrc={crackmenix} gradientFrom="#34d399" gradientTo="#14b8a6"/>
+        <Widget link="/ctf/supercluster" title="Supercluster" description="Misc - CSCG 2025" iconSrc={supercluster} gradientFrom="#38bdf8" gradientTo="#6366f1"/> 
+        <Widget link="/projects/kdfdream" title="KDFDream" description="Crypto - CSCG 2025" iconSrc={kdfdream} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>
         <Textheader text="Archive"/>
         <ArchiveRow title="LinkVortex" ctf="Hack The Box" link='linkvortex' date={new Date(2024, 0, 17)}/>
         <ArchiveRow title="Chemistry" ctf="Hack The Box" link='chemistry' date={new Date(2024, 0, 14)}/>

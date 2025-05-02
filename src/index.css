@@ -1,7 +1,12 @@
 @import url(https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap);
 @import url(https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap);
 @import "tailwindcss";
-
+@import 'katex/dist/katex.min.css';
+@layer components {
+  .katex .katex-html {
+    @apply align-middle text-code-resp-medium;
+  }
+}
 @theme {
     --font-global: "Source Sans Pro", "sans-serif"; 
     --font-header: "DM Serif Display", "serif"; 
@@ -9,9 +14,14 @@
   }
 @custom-variant dark (&:where(.dark, .dark *));
 
-
 @utility text-body-resp {
     @apply text-lg lg:text-lg xl:text-xl 2xl:text-2xl;
+}
+@utility text-code-resp {
+  @apply text-sm 2xl:text-base;
+}
+@utility text-code-resp-medium {
+  @apply text-base lg:text-base 2xl:text-lg;
 }
 @utility text-title {
   @apply text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl;

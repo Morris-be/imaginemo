@@ -1,7 +1,7 @@
 import Widget from '../components/Widget';
-import skullcode from '../assets/widgeticons/skullcode.png';
-import gridwave from '../assets/widgeticons/gridwave.png';
-import flagservice from '../assets/widgeticons/kerberos.svg';
+import crackmenix from '../assets/widgeticons/crackmenix.svg';
+import kdfdream from '../assets/widgeticons/kdfdream.png';
+import supercluster from '../assets/widgeticons/supercluster.svg';
 import foldablephone from '../assets/widgeticons/foldable.png';
 import chart4blind from '../assets/widgeticons/braille.svg';
 import DraggableBall from '../components/DraggableBall';
@@ -53,12 +53,11 @@ const Home: React.FC = () => {
           <Widget link="/projects/mytokenapp" title="MyToken App" description="A react native application for an extended O-Auth key service" iconSrc={foldablephone} gradientFrom="#4ADBC8" gradientTo="#45B1A3"/>
           <br/><br/>
           <p className="font-bold"> Select Writeups </p> 
-          <Widget link="/ctf/skullcode" title="Skullcode" description="Reverse Engineering - CSCG 2025" iconSrc={skullcode} gradientFrom="#34d399" gradientTo="#14b8a6"/>
+          <Widget link="/ctf/crackmenix" title="Crackme.nix" description="Reverse Engineering - CSCG 2025" iconSrc={crackmenix} gradientFrom="#34d399" gradientTo="#14b8a6"/>
         
-          <Widget link="/ctf/gridwave" title="Gridwave" description="Reverse Engineering - CSCG 2025" iconSrc={gridwave} gradientFrom="#38bdf8" gradientTo="#6366f1"/>
+          <Widget link="/ctf/supercluster" title="Supercluster" description="Misc - CSCG 2025" iconSrc={supercluster} gradientFrom="#38bdf8" gradientTo="#6366f1"/>
 
-          <Widget link="/projects/flagservice" title="Flag Service" description="Crypto - CSCG 2025" iconSrc={flagservice} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>
-        </div>
+          <Widget link="/projects/kdfdream" title="KDFDream" description="Crypto - CSCG 2025" iconSrc={kdfdream} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>        </div>
     </div>
   </div>
 
