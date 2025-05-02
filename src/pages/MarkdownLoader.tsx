@@ -70,7 +70,7 @@ const MarkdownLoader: React.FC = () => {
             h2: ({ children, ...props  }) => <h2 {...props } className="text-h2-resp font-semibold mt-3 mb-2 pb-3">{children}</h2>,
             h3: ({ children, ...props   }) => <h3 {...props } className="text-h3-resp font-semibold mt-2 mb-2">{children}</h3>,
             h4: ({ children, ...props   }) => <h4 {...props } className="text-h3-resp font-semibold mt-2 mb-2">{children}</h4>,
-            p: ({ children }) => <p className="text-body-resp leading-relaxed">{children}</p>,
+            p: ({ children }) => <p className="text-body-resp leading-relaxed mb-4">{children}</p>,
             li: ({ children }) => <li className="ml-4 list-disc text-body-resp">{children}</li>,
             code: ({ node, className, children, ...props }) => {
               const isInline = node?.position?.start?.line === node?.position?.end?.line;
@@ -90,7 +90,7 @@ const MarkdownLoader: React.FC = () => {
                 <pre
                   className={
                     "bg-gray-100 dark:bg-gray-800 text-code-resp font-mono rounded border border-gray-300 dark:border-gray-700 " +
-                    "p-4 overflow-x-auto whitespace-pre-wrap break-words"
+                    "p-4 overflow-x-auto whitespace-pre-wrap break-words -mt-3 mb-1"
                   }
                 >
                   <code className={className} {...props}>

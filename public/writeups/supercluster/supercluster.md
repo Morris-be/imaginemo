@@ -17,7 +17,7 @@ This is a [Kubernetes](https://kubernetes.io/) challenge where, inside a namespa
 
 Solving the challenge requires using three primary vulnerabilities and (mis-)configurations to our advantage:
 1. We can view any static file served inside the `/www` directory on the supercluster website. If a symbolic link is inside this directory, we could view arbitrary files.
-2. A cron-job resolves a remote .tar.gz file to update the content in `/www` every minute. Due to [CVE-2020-8554](https://nvd.nist.gov/vuln/detail/cve-2020-8554) we can spoof this remote .tar.gz file by imitating `https://static.cscg.live`. 
+2. A cron-job resolves a remote .tar.gz file to update the content in `/www` every minute. Due to [CVE-2020-8554](https://nvd.nist.gov/vuln/detail/cve-2020-8554) we can spoof this remote .tar.gz file by imitating the IP of `https://static.cscg.live`. 
 3. `ShareProcessNamespace: true` allows us to read a container's system runtime information from another container. Abusing this, inside the .tar.gz file, we place a crafted symbolic link to the flag, which the web server resolves to the flag when fetched. 
 ### Overview
 When we connect with the ssh command, we are placed in the "ctf" namespace. No containers are running, and we are limited to our service account `entrypoint`. Additionally, we have access to this website:
@@ -79,7 +79,7 @@ The CVE description says the following:
 Kubernetes API server in all versions allows an attacker who is able to create a ClusterIP service and set the spec.externalIPs field, to intercept traffic to that IP address [...]
 ```
 
-Nice, so let's first figure out what the IP address of `static.cscg.live` is so we can create a service with it's external IPs:
+Nice, so let's first figure out what the IP address of `static.cscg.live` is so we can create a service with its external IPs:
 ``` 
 # === commands ===
 ctf:~$ dig static.cscg.live
