@@ -36,7 +36,7 @@ Eager to get started, I immediately asked for a bunch of resources—OverTheWire
           >
             KITCTF
           </a>
-        {'. '} Solving CTF together with others is great. Six months after starting, and I'm trying to qualify for the DHM 2025. Exciting times!
+        {'. '} Solving CTF together with others is great. I successfully qualified for the DHM 2025, where I participated and had a great time.
 
 Below are some of the writeups I've made for the challenges I've completed.
         </div>
