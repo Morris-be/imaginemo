@@ -14,7 +14,7 @@ const CTFWriteups: React.FC = () => {
     <div className="flex justify-center items-center w-full">
       <div className="content-width-resp w-full p-5 items-center mx-auto">
         <h1 className="text-h2-resp font-bold">CTF Writeups</h1>
-        <div className="text-body-resp py-3">My Capture the Flag (CTF) journey began in October 2024 when my friend 
+        <div className="text-body-resp py-3">My Capture the Flag (CTF) journey began in 2024 when my friend 
         {' '}
         <a
           href="https://adrianjunge.de/"
@@ -27,7 +27,7 @@ const CTFWriteups: React.FC = () => {
         {' '}
         randomly mentioned it over lunch at the cafeteria. I'd never heard of CTF before and was instantly fascinated.
 
-Eager to get started, I immediately asked for a bunch of resources—OverTheWire, TryHackMe, HackTheBox, PicoCTF. I pretty much started doing nothing else besides CTF. I then joined the university's CTF team, 
+Eager to get started, I immediately asked for a bunch of resources: OverTheWire, TryHackMe, HackTheBox, PicoCTF. I pretty much started doing nothing else besides CTF. I then joined the university's CTF team, 
         {' '}
           <a
             href="https://kitctf.de/"
