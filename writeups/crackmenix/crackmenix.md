@@ -1,4 +1,5 @@
 ## Crackme.nix Writeup
+Writeup Award: [here](https://morrisbe.de/awards/Best_Writeup_setko8920_1.pdf)  
 Challenge Author: Localo  
 Challenge difficulty: Hard  
 Challenge Files: [here](https://morrisbe.de/challenge_files/crackme-nix.zip)  
@@ -27,7 +28,7 @@ That is pretty much enough introduction to Nix, we don't really need to know wha
 To see what the program does, we install [Nix](https://nixos.org/download/) and run the command provided from the challenge description with a random flag input. The program outputs `incorrect flag :(`, so our guessed input is wrong.
 
 While knowing that it's Nix seems great in practice, as soon as you open the crackme.nix file, you are met with an absolute wall of seemingly random text. Most of it consists of the following:
-```  
+```nix 
 hiegha5W = [...] [
     eeShief9
     aZalahl3
@@ -44,7 +45,7 @@ hiegha5W = [...] [
 Sequences of 8 long characters repeat for exactly 56,136 lines in this array definition... However, we are fortunate to have 40 lines of code before this huge array and 242 lines after with more structure. Not so fortunate is that these lines also seem very obfuscated.
 ### Revealing The Built-ins
 Looks a lot like your typical code, but all variable and function names are completely obfuscated.
-```
+```nix
  bingee9B = {
 	...
     Et0odohz = yah6ni6D "2b6ba[...]9d1a";
@@ -54,7 +55,7 @@ Looks a lot like your typical code, but all variable and function names are comp
 }
 ```
 Part of all that randomness is this block of 21 hashes. Using [Cyberchef's](https://gchq.github.io/CyberChef/#recipe=Analyse_hash()&input=OWUwNjg5NjI2YTFlMDJmZmE0MjVhNGFjMGZmMjMzMjhmZDJmYjdkZWFlMmY3NmM4MmFkMGQ5ZGU3OTJkNThiYQ) hash analysis tool or finding the clear text "sha256" in the given lines, we figure out that these are sha256 hashes. For very short input values, [brute force](https://10015.io/tools/sha256-encrypt-decrypt) is enough to reveal what led to the hash. Brute force revealed `eafe8[...]0ac0 = trace`. Searching the Nix documentation for `trace` leads us to the [built-in Nix functions documentation](https://nix.dev/manual/nix/2.18/language/builtins). We hash a bunch of the built-in function names and compared the result to those provided to figure out all 21 present built-ins: 
-```
+```nix
 bingee9B = {
     ADu9AD5I = yah6ni6D "eafe8[...]0ac0"; #trace
     ahse8ueB = yah6ni6D "32e15[...]f40f"; #fromJSON
@@ -83,7 +84,7 @@ Now we know what each hash is!
 
 However, `ADu9AD5I` etc. still have a `yah6ni6D` on the right side of the expression `ADu9AD5I = yah6ni6D "eafe8[...]0ac0";` So what does that function do? 
 We Ctrl-f in the file and find this:
-```
+```nix
 yah6ni6D =
     with builtins;
     iu5ohQue:
@@ -111,7 +112,7 @@ The same goes for the second instruction. `[0] = [0] - [2]`, which is equivalent
 `[a + b - c, b, c]`
 
 All right, let's ensure that this hunch is true and go over all the internal workings of the machine. Such a state machine needs multiple things to work correctly, and in crackme.nix, the creator decided to use a dictionary (Eidoo6ba) similar to the one we introduced previousl,y as the keys are simply numbers, and additionally a stack (Oori9Lie) for processing. The machine also has a counter (Jil0leep), counting which instruction we are at. Since the huge center array likely represents the instructions, the counter will help us determine which instruction we are processing next. This counter is initially set to 0 (zeiY0ru5). 
-```
+```nix
 (puph7Oop {
   Jil0leep = zeiY0ru5;
   Oori9Lie = [ ];
@@ -120,7 +121,7 @@ All right, let's ensure that this hunch is true and go over all the internal wor
 }).Jil0leep
 ```
 Let's replace all those variables to make it nicer to look at:
-```
+```nix
 (puph7Oop {
   mCOUNT = 0;
   mSTACK = [ ];
@@ -131,13 +132,13 @@ Let's replace all those variables to make it nicer to look at:
 We are left wondering what `puph7Oop` is and what the hell `yiGiw1oo` does to our user input flag...
 To stick to the explanation of the machine, let's first understand `puph7Oop`. To do this, we first find the function definition with Ctrl-f. 
 *Note: the local variables a,b,c, which are essentially local variables in nix function definitions, were always random 8-character values too; I replaced them everywhere.*
-```
+```nix
   puph7Oop = a: if a.mCOUNT < 0 then a else aZooj8ox puph7Oop a;
 ```
 There is some sort of recursion going on. `puph7Oop` takes an input `a` which is the entire `mOBJECT`. It just returns `mOBJECT` if `mCount` is less than 0. However, when it is greater than 0, it calls the function `aZooj8ox` with inputs `puph7Oop` (itself) and `mOBJECT`.
 
 We need to figure out what `aZooj8ox` does. Ctrl-f for function definitions is definitely becoming a pattern:
-```
+```nix
   aZooj8ox = a: b: (elemAt hiegha5W b.mCOUNT) a b;
 ```
 This is using the `elemAt` built-in to choose the element at mCOUNT from the array hiegha5W, which is that 56,136-element array making up most of the file. It then executes the command it finds with inputs a and b, which are once again puph7Oop and the `mOBJECT`. Each command adjusts the state machine as per its definition, then calls `puph7Oop a`again to ensure the next instruction executes. 
@@ -147,7 +148,7 @@ So here we are. We know we have a state machine.
 Let's get back to what  `mINPUT = yiGiw1oo flag;` does. 
 The flag is simply the user input we provide. Following the trail using Ctrl-f quickly becomes extremely nested this time, so let's now work with debug traces in nix.
 We wrap the function definitions with some trace as so:
-```
+```nix
 yiGiw1oo = kui8Cae0:
   builtins.trace
     (builtins.toString (bingee9B.iiV8Em3u
@@ -167,7 +168,7 @@ So we have our state machine, know what happens to the user input, but haven't r
 ### Reimplementing The State Machine
 Reversing each function is fairly straightforward. We choose one, Ctrl-f for its definition, and try to understand what is happening. We then reimplement the function in Python. Subsequently, each Nix function name is replaced with that of the python function. E.g., `ahCee6ae` is replaced with `switch_first_two`, producing a new array of instructions. To have a working state machine in Python, a loop goes through the instructions of the huge array:
 This is one such working state machine (it requires crackme.nix to be in the same directory):
-```
+```python
 mOBJECT = {
     "mCOUNT": 0,
     "mSTACK": [],
@@ -327,7 +328,7 @@ while mOBJECT["mCOUNT"] != -1:
 ```
 
 This is the first state when we launch the state machine:
-```
+```python
 mOBJECT = {
     "mCOUNT": 0,
     "mSTACK": [],
@@ -337,7 +338,7 @@ mOBJECT = {
 ```
 ### Char Code to Large Numbers
 Let's now go for a walk through the execution. We first notice a repeating section due to an early jump instruction. There are two outcomes at this instruction: either we decrement mCOUNT by 306 or increase it by 1. This is the state when the section finally completes, and we increase mCOUNT by 1:
-```
+```python
 mOBJECT = {
     "mCOUNT": 311,
     "mSTACK": [7],
@@ -350,7 +351,7 @@ mOBJECT = {
 
 After we are finally out of the length count, we reach the pretty consistent part: 
 4 of the mFLAG characters are pushed onto mSTATE:
-```
+```python
 mOBJECT = {
     "mCOUNT": 626,
     "mSTACK": [104, 99, 97, 100, 4, 13, -46816, 1],
@@ -360,7 +361,7 @@ mOBJECT = {
 ```
 We also see new values for a potential jumps (-46816 instructions backward), so a lot is about to happen...
 We hold enter and see some complex calculation turning the four input values into this number:
-```
+```python
 mOBJECT = {
     "mCOUNT": 751,
     "mSTACK": [1751343460, ...],
@@ -369,7 +370,7 @@ mOBJECT = {
 }
 ```
 Four more characters are then loaded, and a second large number is produced:
-```
+```python
 mOBJECT = {
     "mCOUNT": 917,
     "mSTACK": [..., 2068206659, 1751343460, ...],
@@ -393,7 +394,7 @@ The first character is loaded and shifted 8 bits left, then xored with the next 
 
 ### Converting 2 Large Numbers to 2 Large Numbers (Modified XTEA)
 Once 8 characters are converted, another large calculation commences. We step through and let it complete, leading to this result. 
-```
+```python
 mOBJECT = {
     "mCOUNT": 47263,
     "mSTACK": [..., 4265663887, 3326388521],
@@ -405,7 +406,7 @@ mOBJECT = {
 To reverse this calculation, we need to hope there are consistent repeating steps. Luckily, some complex calculation is completed 32 times with different inputs each time. This calculation takes 5 values, turns them into 2 new values, and repeats this process 32 times. 
 
 Before each of these intermediate calculations, the state is as follows:
-```
+```python
 mOBJECT = {
     "mCOUNT": 6578,
     "mSTACK": [],
@@ -420,7 +421,7 @@ We also see that `mSTATE["5"]` and `mSTATE["6"]` are constants that are uniquely
 *Note: The constant values are produced through left shifts (<<) and additions (+1), to construct arbitrary values.*
 
 When we step through, we reach the result of this intermediate step:
-```
+```python
 mOBJECT = {
     "mCOUNT": 32586,
     "mSTACK": [],
@@ -430,7 +431,7 @@ mOBJECT = {
 ```
 
 The subsequent intermediate step has this state before it begins:
-```
+```python
 mOBJECT = {
     "mCOUNT": 6578,
     "mSTACK": [],
@@ -441,7 +442,7 @@ mOBJECT = {
 Since `mSTATE["7"]` and `mSTATE["8"]` are the output from the previous round right above, we notice that this is a repeating process obfuscating the original input further and further through a [Feistel cipher](https://en.wikipedia.org/wiki/Feistel_cipher) like approach.
 
 By skipping through, we extract the unique keys `mSTATE["5"]` and `mSTATE["6"]` and note them down for reversal later.
-```
+```python
 chain_params = [
     (2174560045, 4088821797),
     (4088821797, 1160655803),
@@ -482,7 +483,7 @@ Since we only chose to use 8 characters for our example, though, the execution c
 To briefly summarize where we are right now: Using the reimplemented state machine, we've turned sets of 8 char codes to sets of large numbers.
 
 Next, a section calculates 12 seemingly random values and places them in mSTATE in addition to ALL the values we calculated:
-```
+```python
 mOBJECT = {
     "mCOUNT": 51677,
     "mSTACK": [],
@@ -496,7 +497,7 @@ Since there are 12 values and 8 characters are turned into 2 values, we know the
 All we need to do now is reverse the computation used to turn our input into the initial large numbers, as well as the subsequent 32 rounds of modified XTEA. This allows us to use the provided 12 values to go backwards and obtain the user input char code. 
 
 We reverse the modified XTEA sub-operation from *Converting 2 Large Numbers to 2 Large Numbers (Modified XTEA)* by reversing each bit operation. We then run this 32 times with the chain parameters we've extracted. We then convert the output back into the character by reversing the operation initially completed on the four characters *Converting Input Flag to Char Code*. The full reverse then looks as follows:
-```
+```python
 chain_params = [
     (2174560045, 4088821797),
     (4088821797, 1160655803),
