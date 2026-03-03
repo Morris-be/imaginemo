@@ -104,7 +104,7 @@ Before even looking at the official document, googling "NIST SP 800-108 Vulnerab
 Using our powerful MITM capabilities, we have the ability to control the nonces exchanged by Alice and Bob. These nonces are exactly 16 bytes long and are parts of the CMAC inputs for the OTP! To ensure we don't manipulate too much and have all the information we need, we allow Bob to send his nonce to Alice, observe the nonce that Bob would receive, and choose the 16-byte nonce that Bob actually receives based on the vulnerability.
 #### CMAC Counter-Mode
 CMAC Counter Mode takes and calculates the following inputs to provide a single OTP:
-```
+```python
 ---------------- TAKEN INPUTS ----------------
 shared_key = ...
 context = alice_ctx1 + alice_ctx2 # without MITM same for Bob
@@ -133,7 +133,7 @@ assert OTP == 3e21e02dba92a43450a0cea3f647d07c
 To calculate the subkeys, we just copy the [pycryptodome implementation](https://github.com/Legrandin/pycryptodome/blob/master/lib/Crypto/Hash/CMAC.py) for CMAC, inputting the `shared_key` and receiving the two subkeys `K1` and `K2`. 
 
 We now use the determined `M[i]` together with the shared key in rounds until each `M[i]` is processed, and we reach the final output.
-```
+```python
 encrypt = AES.new(master, AES.MODE_ECB).encrypt
 
 C1 = encrypt(M1)
@@ -148,12 +148,12 @@ Where `C5` is the output OTP.
 For a formal description of the vulnerability, we look to the official [NIST SP 800-108 Rev. 1 document](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf). In the appendix, the key realization described is that the AES-CMAC operations are reversible. If we have a **desired final output**, we can reverse the operations to determine what our controlled block must equal.
 
 We reverse the last AES-CMAC step as follows to get C4:
-```
+```python
 decrypt = AES.new(master, AES.MODE_ECB).encrypt
 C4 =  xor(xor(decrypt(C5), M5), K2)
 ```
 To reverse an intermediate AES-CMAC step, we do:
-```
+```python
 decrypt = AES.new(master, AES.MODE_ECB).decrypt
 C1 =  xor(decrypt(C2), M2)
 ```
@@ -162,7 +162,7 @@ Say `M3` was completely under our control, and we have a desired `C5`
 - We follow the typical behavior of AES-CMAC from above as far as we can with known variables. 
 - We reverse the behavior of AES-CMAC starting from `C5` as far as we can 
 - We rearrange `xor(decrypt(C3), M3)` for M3 which is the only unknown:
-```
+```python
 encrypt = AES.new(master, AES.MODE_ECB).encrypt
 decrypt = AES.new(master, AES.MODE_ECB).decrypt
 
@@ -178,7 +178,7 @@ M3 = xor(decrypt(C3), C2)
 If we use this determined `M3` in CMAC Counter-Mode, we obtain `C5`. 
 #### Desired Output
 What is our desired output though? We can calculate Alice's OTP since we have both nonces. Using this OTP, we know the exact OTP for Bob that would lead to "success":
-```
+```python
 ---------------- Bagdrop from challenge ----------------
 alice_msg = b'wearecompromised'
 success = b'allgoodprintflag'
@@ -193,7 +193,7 @@ assert success == xor(needed_t, bagdrop)
 We have a minor issue though in our above exploit: We control 16 bytes, but only control 14 bytes of `M[3]` and the last 2 bytes of `M[2]`. This is due to the way the `M[i]` blocks were extracted from the initial concatenation. This is pretty simple to fix, we just brute force through all $2^{16}$ combinations of the last 2 bytes of `M[2]` we control, and recalculate `M[3]` until the last two bytes of non-controlled part of the `M[3]` block matches our recalculated `M[3]`.
 ### Full Solve Script
 The challenge was hosted remotely to obtain the flag. This version uses the script `chall.py`, which must be in the same directory:
-```
+```python
 from pwn import remote, process
 from Crypto.Protocol.KDF import SP800_108_Counter
 from primitives import HMAC_PRF, CMAC_PRF, KMAC_PRF, SHA256

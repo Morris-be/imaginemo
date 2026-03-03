@@ -1,6 +1,6 @@
 import Widget from '../components/Widget';
 import crackmenix from '../assets/widgeticons/crackmenix.svg';
-import kdfdream from '../assets/widgeticons/kdfdream.png';
+import cpts from '../assets/widgeticons/cpts.png';
 import supercluster from '../assets/widgeticons/supercluster.svg';
 import foldablephone from '../assets/widgeticons/foldable.png';
 import chart4blind from '../assets/widgeticons/braille.svg';
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           <p className="font-bold"> Find me @ </p>
           <div className="flex flex-row gap-2">
           <a
-              href="https://www.linkedin.com/in/morris-baumgarten-egemole-653223292"
+              href="https://www.linkedin.com/in/morrisbe"
               target="_blank"
               rel="noopener noreferrer"
               className="text-black-500 dark:text-gray-200 underline hover:no-underline"
@@ -53,11 +53,12 @@ const Home: React.FC = () => {
           <Widget link="/projects/mytokenapp" title="MyToken App" description="A react native application for an extended O-Auth key service" iconSrc={foldablephone} gradientFrom="#4ADBC8" gradientTo="#45B1A3"/>
           <br/><br/>
           <p className="font-bold"> Select Writeups </p> 
-          <Widget link="/ctf/crackmenix" title="Crackme.nix" description="Reverse Engineering - CSCG 2025" iconSrc={crackmenix} gradientFrom="#34d399" gradientTo="#14b8a6"/>
-        
-          <Widget link="/ctf/supercluster" title="Supercluster" description="Misc - CSCG 2025" iconSrc={supercluster} gradientFrom="#38bdf8" gradientTo="#6366f1"/>
+          <Widget link="/ctf/supercluster" title="Supercluster" description="Misc - CSCG 2025" iconSrc={supercluster} gradientFrom="#38bdf8" gradientTo="#6366f1" showAward={true}/>
 
-          <Widget link="/projects/kdfdream" title="KDFDream" description="Crypto - CSCG 2025" iconSrc={kdfdream} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>        </div>
+          <Widget link="/ctf/crackmenix" title="Crackme.nix" description="Reverse Engineering - CSCG 2025" iconSrc={crackmenix} gradientFrom="#34d399" gradientTo="#14b8a6" showAward={true}/>
+        
+          <Widget link="/ctf/cpts" title="Certified Penetration Testing Specialist" description="Certificate - Hack The Box 2026" iconSrc={cpts} gradientFrom="#B948FF" gradientTo="#9F7DFF"/>
+          </div>
     </div>
   </div>
 

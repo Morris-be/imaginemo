@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaAward } from "react-icons/fa";
 import GradientContent from "./GradientContent";
 
 interface WidgetProps {
@@ -9,17 +10,23 @@ interface WidgetProps {
   link: string;
   gradientFrom: string;
   gradientTo: string;
+  showAward?: boolean;
 }
 
-const Widget: React.FC<WidgetProps> = ({ title, description, iconSrc, link, gradientFrom, gradientTo }) => {
+const Widget: React.FC<WidgetProps> = ({ title, description, iconSrc, link, gradientFrom, gradientTo, showAward = false }) => {
   return (
     <div className="py-3">
       <Link
         to={link}
         className="flex items-center rounded-lg shadow-lg dark:bg-white/10 dark:shadow-none dark:hover:none hover:shadow-xl transition-shadow duration-300 w-full h-40"
       >
-        <div className="w-1/3 h-full rounded-l-lg overflow-hidden">
+        <div className="w-1/3 h-full rounded-l-lg overflow-hidden relative">
           <GradientContent iconSrc={iconSrc} gradientFrom={gradientFrom} gradientTo={gradientTo}/>
+          {showAward && (
+            <div className="absolute top-2 right-2">
+              <FaAward className="text-black dark:text-white text-4xl" />
+            </div>
+          )}
         </div>
         <div className="w-2/3 pl-4 pr-1">
           <h2 className="text-h3-resp font-bold">{title}</h2>
