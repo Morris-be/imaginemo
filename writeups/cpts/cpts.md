@@ -12,4 +12,4 @@ To ensure I followed all the guidelines set by Hack The Box, my final report end
 Overall, CPTS pushed me hard, but it was incredibly enjoyable.
 ### Certificate
 ![](attachment/cpts_cert.png)
-Check it out my badge on credly too: [here](https://www.credly.com/badges/50af401b-97d3-4028-87b8-15b83764fcd9/public_url) 
+Check out my badge on Credly: [here](https://www.credly.com/badges/50af401b-97d3-4028-87b8-15b83764fcd9/public_url) 
