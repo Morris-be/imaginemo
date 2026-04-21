@@ -44,6 +44,11 @@ const OverlayNavBar: React.FC<OverlayNavBarProps> = ({ onClose, themeMode, chang
               Projects
             </Link>
           </li>
+          <li>
+            <Link onClick={onClose} to="/cves" className="">
+              CVEs
+            </Link>
+          </li>
         </ul>
       </nav>
       <img onClick={changeThemeMode} 

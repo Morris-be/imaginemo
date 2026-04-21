@@ -35,6 +35,9 @@ export const Navbar: React.FC<NavbarProps> = React.memo(({ themeMode, changeThem
           <div className="">
             <JellyHeader text="Projects" link="/projects" />
           </div>
+          <div className="">
+            <JellyHeader text="CVEs" link="/cves" />
+          </div>
         </div>
         <div className="flex items-center justify-between space-x-4 flex items-center dark:opacity-90">
           <JellyHeader

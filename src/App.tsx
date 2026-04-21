@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import CTFWriteups from './pages/CTFWriteups';
 import Projects from './pages/Projects';
+import CVEsProjects from './pages/CVEsProjects.tsx';
 import { Navbar } from './components/Navbar';
 import OverlayNavBar from './components/OverlayNavBar';
 import MarkdownLoader from './pages/MarkdownLoader';
@@ -65,6 +66,7 @@ const App: React.FC = () => {
             <Route path="/ctf/:slug" element={<MarkdownLoader />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:slug" element={<MarkdownLoader />} />
+            <Route path="/cves" element={<CVEsProjects />} />
           </Routes>
         </main>
       </div>
