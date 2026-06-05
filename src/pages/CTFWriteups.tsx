@@ -14,20 +14,7 @@ const CTFWriteups: React.FC = () => {
     <div className="flex justify-center items-center w-full">
       <div className="content-width-resp w-full p-5 items-center mx-auto">
         <h1 className="text-h2-resp font-bold">CTF Writeups</h1>
-        <div className="text-body-resp py-3">My Capture the Flag (CTF) journey began in 2024 when my friend 
-        {' '}
-        <a
-          href="https://adrianjunge.de/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="custom-link-styling"
-        >
-          Adrian Junge
-        </a>
-        {' '}
-        randomly mentioned it over lunch at the cafeteria. I'd never heard of CTF before and was instantly fascinated.
-
-Eager to get started, I immediately asked for a bunch of resources: OverTheWire, TryHackMe, HackTheBox, PicoCTF. I pretty much started doing nothing else besides CTF. I then joined the university's CTF team, 
+        <div className="text-body-resp py-3">I started playing Capture the Flag (CTF) in 2024 and was instantly fascinated, working through platforms like OverTheWire, TryHackMe, Hack The Box, and picoCTF. I quickly joined the university's CTF team, 
         {' '}
           <a
             href="https://kitctf.de/"
@@ -37,7 +24,7 @@ Eager to get started, I immediately asked for a bunch of resources: OverTheWire,
           >
             KITCTF
           </a>
-        {'. '} Solving CTF together with others is great. I successfully qualified for the DHM 2025, where I participated and had a great time.
+        {'. '} Solving CTF challenges together with others is great. With all the work I put in, I managed to achieve a high finish in the Cyber Security Challenge Germany (CSCG), a two-month-long CTF, through which I successfully qualified for the Deutsche Hacking Meisterschaft (DHM) 2025.
 
 Below are some of the writeups I've made for the challenges I've completed.
         </div>
@@ -54,8 +41,5 @@ Below are some of the writeups I've made for the challenges I've completed.
     </div>
   );
 };
-
-//        <Widget link="placeholder" title="Placeholder" description="Reverse Engineering - CSCG 2025" iconSrc={gridwave} gradientFrom="#ffe0b2" gradientTo="#ff8a80"/>
-
 
 export default CTFWriteups;

@@ -30,8 +30,8 @@ const OverlayNavBar: React.FC<OverlayNavBarProps> = ({ onClose, themeMode, chang
             </Link>
           </li>
           <li>
-            <Link onClick={onClose} to="/about" className="">
-              About Me
+            <Link onClick={onClose} to="/cves" className="">
+              Bug Bounty and CVEs
             </Link>
           </li>
           <li>
@@ -45,8 +45,8 @@ const OverlayNavBar: React.FC<OverlayNavBarProps> = ({ onClose, themeMode, chang
             </Link>
           </li>
           <li>
-            <Link onClick={onClose} to="/cves" className="">
-              CVEs
+            <Link onClick={onClose} to="/about" className="">
+              About Me
             </Link>
           </li>
         </ul>
