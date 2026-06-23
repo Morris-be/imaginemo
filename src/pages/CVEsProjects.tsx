@@ -48,13 +48,13 @@ const bountyItems: BountyItem[] = [
   },
   {
     severity: 'High',
-    reports: 1,
-    reward: '$2,500',
+    reports: 2,
+    reward: '$7,500',
   },
   {
     severity: 'Low',
-    reports: 1,
-    reward: '$1,000',
+    reports: 2,
+    reward: '$2,000',
   },
   {
     severity: 'Informational',
@@ -191,7 +191,7 @@ const CVEsProjects: React.FC = () => {
                 ))}
                 <tr className="border-t border-gray-300 bg-emerald-50 dark:border-gray-600 dark:bg-emerald-400/10">
                   <td className="px-4 py-3 align-middle font-semibold" colSpan={2}>Total reward</td>
-                  <td className="px-4 py-3 align-middle font-bold text-emerald-700 dark:text-emerald-200">$8,600</td>
+                  <td className="px-4 py-3 align-middle font-bold text-emerald-700 dark:text-emerald-200">$14,600</td>
                 </tr>
               </tbody>
             </table>

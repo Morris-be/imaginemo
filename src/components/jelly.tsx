@@ -9,6 +9,11 @@ interface JellyHeaderProps {
   png?: string;
 }
 
+const maxOffset = 17;
+const effectFactor = 0.27;
+
+const clampOffset = (value: number) => Math.max(-maxOffset, Math.min(maxOffset, value));
+
 const JellyHeader: React.FC<JellyHeaderProps> = ({ text, link, newtab, png }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -18,8 +23,10 @@ const JellyHeader: React.FC<JellyHeaderProps> = ({ text, link, newtab, png }) =>
       const { height, width, left, top } = ref.current.getBoundingClientRect();
       const middleX = clientX - (left + width / 2);
       const middleY = clientY - (top + height / 2);
-      const effectFactor = 0.35; 
-      setPosition({ x: middleX * effectFactor, y: middleY * effectFactor });
+      setPosition({
+        x: clampOffset(middleX * effectFactor),
+        y: clampOffset(middleY * effectFactor),
+      });
     }
   };
   const reset = () => {
@@ -32,36 +39,40 @@ const JellyHeader: React.FC<JellyHeaderProps> = ({ text, link, newtab, png }) =>
     <div className="text-h3-resp">{text}</div>
   );
   return (
-    <motion.div
+    <div
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
-      animate={{ x, y }}
-      transition={{ type: 'spring', stiffness: 150, damping: 4, mass: 0.25 }}
       className="inline-block relative"
     >
-      {link ? (
-        newtab ? (
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="no-underline"
-          >
-            {content}
-          </a>
+      <motion.div
+        animate={{ x, y }}
+        transition={{ type: 'spring', stiffness: 440, damping: 15, mass: 0.22 }}
+        className="inline-block will-change-transform"
+      >
+        {link ? (
+          newtab ? (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline"
+            >
+              {content}
+            </a>
+          ) : (
+            <Link
+              to={link}
+              className="no-underline"
+            >
+              {content}
+            </Link>
+          )
         ) : (
-          <Link
-            to={link}
-            className="no-underline"
-          >
-            {content}
-          </Link>
-        )
-      ) : (
-        content
-      )}
-    </motion.div>
+          content
+        )}
+      </motion.div>
+    </div>
   );
 };
 
