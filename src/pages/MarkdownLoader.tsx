@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
+import { useParams } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -40,7 +39,7 @@ const MarkdownLoader: React.FC = () => {
         }
         const text = await response.text();
         setContent(text);
-      } catch (err) {
+      } catch {
         setError('Placeholder not found');
       }
     };
@@ -74,7 +73,7 @@ const MarkdownLoader: React.FC = () => {
         <ReactMarkdown
           remarkPlugins={[
             remarkMath,
-            //@ts-expect-error
+            // @ts-expect-error -- remark-slug's unified types do not match react-markdown's plugin type.
             remarkSlug,
             [remarkToc, { heading: 'Table of Contents', tight: true, maxDepth: 4, minDepth: 2 }],
           ]}
@@ -112,9 +111,24 @@ const MarkdownLoader: React.FC = () => {
             a: ({ children, href, ...props }) => {
               if (href && href.startsWith('#')) {
                 return (
-                  <HashLink smooth to={href} className="custom-link-styling" {...props}>
+                  <a
+                    href={href}
+                    className="custom-link-styling"
+                    {...props}
+                    onClick={(event) => {
+                      const target = document.getElementById(href.slice(1));
+
+                      if (!target) {
+                        return;
+                      }
+
+                      event.preventDefault();
+                      window.history.pushState(null, '', href);
+                      target.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
                     {children}
-                  </HashLink>
+                  </a>
                 );
               }
               return (
