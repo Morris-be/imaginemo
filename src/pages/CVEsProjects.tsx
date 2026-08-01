@@ -9,9 +9,13 @@ interface CVEItem {
   cveUrl?: string;
 }
 
-type Severity = 'Informational' | 'Low' | 'Medium' | 'High' | 'Critical';
+type Severity = 'None' | 'Informational' | 'Low' | 'Medium' | 'High' | 'Critical';
 
 const severityStyles: Record<Severity, { accentClasses: string; badgeClasses: string }> = {
+  None: {
+    accentClasses: 'bg-gray-400',
+    badgeClasses: 'bg-gray-50 text-gray-700 ring-gray-200 dark:bg-gray-400/10 dark:text-gray-200 dark:ring-gray-400/30',
+  },
   Informational: {
     accentClasses: 'bg-gray-400',
     badgeClasses: 'bg-gray-50 text-gray-700 ring-gray-200 dark:bg-gray-400/10 dark:text-gray-200 dark:ring-gray-400/30',
@@ -35,33 +39,30 @@ const severityStyles: Record<Severity, { accentClasses: string; badgeClasses: st
 };
 
 interface BountyItem {
-  severity: 'Informational' | 'Low' | 'High' | 'Critical';
+  severity: 'None' | 'Low' | 'Medium' | 'High' | 'Critical';
   reports: number;
-  reward: string;
 }
 
 const bountyItems: BountyItem[] = [
   {
-    severity: 'Critical',
-    reports: 1,
-    reward: '$5,000',
+    severity: 'High',
+    reports: 5,
   },
   {
-    severity: 'High',
-    reports: 2,
-    reward: '$7,500',
+    severity: 'Medium',
+    reports: 5,
   },
   {
     severity: 'Low',
-    reports: 2,
-    reward: '$2,000',
+    reports: 3,
   },
   {
-    severity: 'Informational',
+    severity: 'None',
     reports: 1,
-    reward: '$100',
   },
 ];
+
+const totalBountyReports = bountyItems.reduce((total, item) => total + item.reports, 0);
 
 const cveItems: CVEItem[] = [
   {
@@ -81,8 +82,10 @@ const cveItems: CVEItem[] = [
   {
     repository: 'Joomla!',
     repositoryUrl: 'https://github.com/joomla/joomla-cms',
-    cvssRating: '6.1',
-    cveId: 'Requested',
+    cvssRating: '5.9',
+    name: 'XSS through language overrides',
+    cveId: 'CVE-2026-48954',
+    cveUrl: 'https://www.cve.org/CVERecord?id=CVE-2026-48954',
   },
   {
     repository: 'SuiteCRM',
@@ -176,7 +179,6 @@ const CVEsProjects: React.FC = () => {
                 <tr className="bg-gray-100 text-left dark:bg-white/10">
                   <th className="px-4 py-3 font-semibold">Severity</th>
                   <th className="px-4 py-3 font-semibold">Reports</th>
-                  <th className="px-4 py-3 font-semibold">Reward</th>
                 </tr>
               </thead>
               <tbody>
@@ -186,12 +188,11 @@ const CVEsProjects: React.FC = () => {
                       <SeverityBadge severity={item.severity} />
                     </td>
                     <td className="px-4 py-3 align-middle font-semibold">{item.reports}</td>
-                    <td className="px-4 py-3 align-middle font-semibold">{item.reward}</td>
                   </tr>
                 ))}
-                <tr className="border-t border-gray-300 bg-emerald-50 dark:border-gray-600 dark:bg-emerald-400/10">
-                  <td className="px-4 py-3 align-middle font-semibold" colSpan={2}>Total reward</td>
-                  <td className="px-4 py-3 align-middle font-bold text-emerald-700 dark:text-emerald-200">$14,600</td>
+                <tr className="border-t border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-white/5">
+                  <td className="px-4 py-3 align-middle font-semibold">Total reports</td>
+                  <td className="px-4 py-3 align-middle font-bold">{totalBountyReports}</td>
                 </tr>
               </tbody>
             </table>
