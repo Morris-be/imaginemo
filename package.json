@@ -23,7 +23,7 @@
     "remark-math": "^6.0.0",
     "remark-slug": "^7.0.1",
     "remark-toc": "^9.0.0",
-    "shiki": "^4.0.1"
+    "shiki": "^4.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
