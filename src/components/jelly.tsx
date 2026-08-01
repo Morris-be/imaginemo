@@ -1,6 +1,6 @@
 import React, { useRef, useState, MouseEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 interface JellyHeaderProps {
   text?: string;
